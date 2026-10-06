@@ -267,3 +267,25 @@ footer { min-height: 100px; display: flex; align-items: center; justify-content:
 }
 @keyframes ecosystem-mobile-signal { 0%,100% { transform: scaleY(.15); opacity: .25; } 50% { transform: scaleY(1); opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .ecosystem-section .wire-signal, .ecosystem-section .phase-progress, .ecosystem-section .tech-node::after { animation: none !important; }.ecosystem-section .wire-signal { stroke-dasharray: none; opacity: .25; } }
+.ecosystem-extensions { margin-top: 38px; }
+.extension-lane { display: grid; grid-template-columns: 210px 1fr; gap: 34px; align-items: center; padding: 25px 0; border-top: 1px solid var(--border); }
+.extension-label { color: var(--muted-foreground); font-size: 11px; line-height: 1.7; }
+.extension-items { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.extension-item { display: grid; grid-template-columns: 30px 1fr; column-gap: 10px; row-gap: 5px; align-items: center; min-width: 0; }
+.extension-item > svg, .extension-item > .td-symbol { grid-row: 1 / 3; width: 25px; height: 25px; color: var(--muted-foreground); }
+.extension-item strong { font-size: 12px; font-weight: 550; color: var(--foreground); }
+.extension-item small { font-size: 10px; color: var(--muted-foreground); line-height: 1.5; }
+.td-symbol { display: grid; place-items: center; font-family: ui-monospace, monospace; font-size: 11px; border: 1px solid var(--border); }
+.extension-link { flex: 1; min-width: 10px; border-top: 1px dashed var(--border); }
+.planned-lane .extension-label { color: var(--warning); }
+.planned-lane .extension-items { opacity: .7; }
+.catalog-logo-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 12px; color: var(--muted-foreground); }
+.catalog-logo-row svg { width: 24px; height: 24px; }
+.ecosystem-scene[data-phase="2"] .tech-node-apple .tech-logo { animation: ecosystem-logo 3.6s ease-in-out infinite; }
+.ecosystem-scene[data-phase="3"] .tech-node-mcp .tech-logo { animation: ecosystem-logo 3.6s ease-in-out infinite; }
+.ecosystem-scene[data-phase="0"] .tech-node-bonjour .tech-logo { animation: ecosystem-logo 3.6s ease-in-out infinite; }
+.ecosystem-scene[data-paused="true"] .tech-logo { animation-play-state: paused; }
+@keyframes ecosystem-logo { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@media (max-width: 900px) { .extension-lane { grid-template-columns: 1fr; gap: 18px; } }
+@media (max-width: 640px) { .extension-items { align-items: start; flex-direction: column; gap: 22px; }.extension-link { display: none; }.extension-item { grid-template-columns: 32px 1fr; }.extension-lane { padding: 24px 0; }.planned-lane .extension-items { flex-direction: row; flex-wrap: wrap; column-gap: 16px; }.planned-lane .extension-item { width: calc(50% - 8px); } }
+@media (prefers-reduced-motion: reduce) { .ecosystem-section .tech-logo { animation: none !important; } }
