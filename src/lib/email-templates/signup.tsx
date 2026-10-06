@@ -32,6 +32,7 @@ export const SignupEmail = ({
     <Preview>Confirm your email for {siteName}</Preview>
     <Body style={main}>
       <Container style={container}>
+        <Text style={brand}>RESOLUXTOOLKIT</Text>
         <Heading style={h1}>Confirm your email</Heading>
         <Text style={text}>
           Thanks for signing up for{' '}
@@ -61,6 +62,7 @@ export const SignupEmail = ({
 export default SignupEmail
 
 const main = { backgroundColor: '#ffffff', fontFamily: 'Arial, sans-serif' }
+const brand = { color: '#F26B33', fontWeight: 700 as const, letterSpacing: '0.08em', fontSize: '12px', margin: '0 0 12px' }
 const container = { padding: '20px 25px' }
 const h1 = {
   fontSize: '22px',
@@ -76,10 +78,10 @@ const text = {
 }
 const link = { color: 'inherit', textDecoration: 'underline' }
 const button = {
-  backgroundColor: '#000000',
+  backgroundColor: '#F26B33',
   color: '#ffffff',
   fontSize: '14px',
-  border: '1px solid #000000',
+  border: '1px solid #F26B33',
   borderRadius: '8px',
   padding: '12px 20px',
   textDecoration: 'none',

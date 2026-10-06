@@ -20,6 +20,7 @@ export const ReauthenticationEmail = ({ token }: ReauthenticationEmailProps) => 
     <Preview>Your verification code</Preview>
     <Body style={main}>
       <Container style={container}>
+        <Text style={brand}>RESOLUXTOOLKIT</Text>
         <Heading style={h1}>Confirm reauthentication</Heading>
         <Text style={text}>Use the code below to confirm your identity:</Text>
         <Text style={codeStyle}>{token}</Text>
@@ -35,6 +36,7 @@ export const ReauthenticationEmail = ({ token }: ReauthenticationEmailProps) => 
 export default ReauthenticationEmail
 
 const main = { backgroundColor: '#ffffff', fontFamily: 'Arial, sans-serif' }
+const brand = { color: '#F26B33', fontWeight: 700 as const, letterSpacing: '0.08em', fontSize: '12px', margin: '0 0 12px' }
 const container = { padding: '20px 25px' }
 const h1 = {
   fontSize: '22px',
