@@ -279,7 +279,7 @@ function Index() {
       <header className="site-header">
         <a href="#top" className="brand"><span className="brand-glyph"><Sparkles /></span><span>ResoluxToolkit</span></a>
         <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
-          <a href="#features">{t.nav[0]}</a><a href="#ecosystem">{locale === "pt" ? "Tecnologias" : "Technologies"}</a><a href="#workflow">{t.nav[1]}</a><a href="#status">{t.nav[2]}</a>
+          <a href="#ecosystem">{locale === "pt" ? "Tecnologias" : "Technologies"}</a><a href="#features">{t.nav[0]}</a><a href="#workflow">{t.nav[1]}</a><a href="#status">{t.nav[2]}</a>
         </nav>
         <div className="flex items-center gap-2">
           <div className="language-switch" aria-label="Language"><Languages className="size-4" /><button onClick={() => changeLocale("pt")} className={locale === "pt" ? "active" : ""}>PT</button><span>/</span><button onClick={() => changeLocale("en")} className={locale === "en" ? "active" : ""}>EN</button></div>
