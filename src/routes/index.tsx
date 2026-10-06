@@ -302,7 +302,9 @@ function Index() {
           </div>
         </section>
 
-        <section id="features" className="section-band">
+        <TechnologyEcosystem locale={locale} featured />
+
+        <section id="features" className="section-band border-t border-border">
           <div className="section-inner">
             <div className="max-w-3xl"><p className="section-kicker">{t.sectionEyebrow}</p><h2>{t.sectionTitle}</h2><p className="section-lead">{t.sectionBody}</p></div>
             <div className="feature-grid">
@@ -311,7 +313,6 @@ function Index() {
           </div>
         </section>
 
-        <TechnologyEcosystem locale={locale} />
 
         <section id="workflow" className="section-band border-t border-border">
           <div className="section-inner">
