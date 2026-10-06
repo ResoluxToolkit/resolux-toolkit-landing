@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep waitlist submissions and rate-limit records behind a server function with no public database policies, because subscriber emails and request fingerprints are private.
+- Expose only static, read-only product information through the public MCP server, because the server has no caller authentication.
