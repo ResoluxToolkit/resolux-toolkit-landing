@@ -41,5 +41,14 @@ export const joinWaitlist = createServerFn({ method: "POST" })
 
     if (error?.code === "23505") return { ok: true as const, alreadyJoined: true };
     if (error) throw new Error("waitlist_unavailable");
+    try {
+      const { sendTemplateEmail } = await import("@/lib/email-templates/send-email");
+      await sendTemplateEmail("waitlist-confirmation", data.email, {
+        templateData: { locale: data.locale },
+        idempotencyKey: `waitlist-confirmation-${data.email}`,
+      });
+    } catch (e) {
+      console.error("waitlist confirmation email failed", e);
+    }
     return { ok: true as const, alreadyJoined: false };
   });
