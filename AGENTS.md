@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep waitlist submissions and rate-limit records behind a server function with no public database policies, because subscriber emails and request fingerprints are private.
