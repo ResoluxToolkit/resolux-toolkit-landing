@@ -215,6 +215,9 @@ footer { min-height: 100px; display: flex; align-items: center; justify-content:
 
 /* Product architecture: signals encode roles, not simulated telemetry. */
 .ecosystem-section { --ecosystem-surface: color-mix(in oklab, var(--background) 88%, var(--secondary)); --ecosystem-grid: color-mix(in oklab, var(--border) 35%, transparent); --ecosystem-shadow: 0 12px 34px color-mix(in oklab, var(--background) 65%, transparent); }
+.ecosystem-featured { position: relative; overflow: hidden; }
+.ecosystem-featured::before { content: ""; position: absolute; inset: -40% 0 auto; height: 620px; pointer-events: none; background: radial-gradient(ellipse at 50% 30%, color-mix(in oklab, var(--primary) 11%, transparent), transparent 58%), radial-gradient(ellipse at 78% 18%, color-mix(in oklab, var(--violet) 6%, transparent), transparent 38%); mask-image: linear-gradient(to bottom, black 45%, transparent); }
+.ecosystem-featured > .section-inner { position: relative; }
 .ecosystem-heading { display: flex; align-items: start; justify-content: space-between; gap: 24px; }
 .ecosystem-heading h2 { font-size: 48px; line-height: 1.1; }
 .ecosystem-heading .section-lead { max-width: 610px; }
