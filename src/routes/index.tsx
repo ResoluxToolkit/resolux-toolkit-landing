@@ -336,6 +336,7 @@ function Index() {
         </nav>
         <div className="flex items-center gap-2">
           <div className="language-switch" aria-label="Language"><Languages className="size-4" /><button onClick={() => changeLocale("pt")} className={locale === "pt" ? "active" : ""}>PT</button><span>/</span><button onClick={() => changeLocale("en")} className={locale === "en" ? "active" : ""}>EN</button></div>
+          <GoogleSignInButton locale={locale} />
           <Button asChild size="sm" className="hidden sm:inline-flex"><a href="#join">{t.join}</a></Button>
         </div>
       </header>
