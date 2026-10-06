@@ -22,6 +22,8 @@ import { FormEvent, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { TechnologyEcosystem } from "@/components/technology-ecosystem";
 import { joinWaitlist } from "@/lib/waitlist.functions";
+import { lovable } from "@/integrations/lovable/index";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -260,6 +262,57 @@ function ProductMock({ locale }: { locale: Locale }) {
   );
 }
 
+function GoogleSignInButton({ locale }: { locale: Locale }) {
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setUserEmail(data.user?.email ?? null));
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUserEmail(session?.user?.email ?? null);
+    });
+    return () => sub.subscription.unsubscribe();
+  }, []);
+
+  async function handleSignIn() {
+    setLoading(true);
+    const result = await lovable.auth.signInWithOAuth("google", {
+      redirect_uri: window.location.origin,
+    });
+    if (result.error) setLoading(false);
+  }
+
+  async function handleSignOut() {
+    await supabase.auth.signOut();
+  }
+
+  if (userEmail) {
+    return (
+      <button
+        type="button"
+        onClick={handleSignOut}
+        title={locale === "pt" ? "Sair" : "Sign out"}
+        className="hidden max-w-40 items-center gap-2 truncate rounded-md border border-border bg-card px-3 py-1.5 text-xs text-muted-foreground transition hover:text-foreground sm:inline-flex"
+      >
+        <span className="size-1.5 shrink-0 rounded-full bg-success" />
+        <span className="truncate">{userEmail}</span>
+      </button>
+    );
+  }
+
+  return (
+    <Button type="button" variant="outline" size="sm" onClick={handleSignIn} disabled={loading} className="hidden sm:inline-flex">
+      <svg viewBox="0 0 24 24" className="size-4" aria-hidden="true">
+        <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47a5.57 5.57 0 0 1-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z" />
+        <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09A11.99 11.99 0 0 0 12 24z" />
+        <path fill="#FBBC05" d="M5.27 14.29A7.2 7.2 0 0 1 4.89 12c0-.8.14-1.57.38-2.29V6.62H1.29a12 12 0 0 0 0 10.76l3.98-3.09z" />
+        <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42A11.98 11.98 0 0 0 12 0 11.99 11.99 0 0 0 1.29 6.62l3.98 3.09C6.22 6.86 8.87 4.75 12 4.75z" />
+      </svg>
+      {loading ? "…" : locale === "pt" ? "Entrar com Google" : "Sign in with Google"}
+    </Button>
+  );
+}
+
 function Index() {
   const [locale, setLocale] = useState<Locale>("pt");
   useEffect(() => {
@@ -283,6 +336,7 @@ function Index() {
         </nav>
         <div className="flex items-center gap-2">
           <div className="language-switch" aria-label="Language"><Languages className="size-4" /><button onClick={() => changeLocale("pt")} className={locale === "pt" ? "active" : ""}>PT</button><span>/</span><button onClick={() => changeLocale("en")} className={locale === "en" ? "active" : ""}>EN</button></div>
+          <GoogleSignInButton locale={locale} />
           <Button asChild size="sm" className="hidden sm:inline-flex"><a href="#join">{t.join}</a></Button>
         </div>
       </header>
