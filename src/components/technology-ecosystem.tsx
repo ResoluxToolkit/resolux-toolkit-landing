@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { ArrowUpRight, AudioLines, Braces, ChevronDown, Globe2, Network, Pause, Play, Radio, ShieldCheck, Sparkles } from "lucide-react";
-import { siApple, siModelcontextprotocol, siOllama, siSwift } from "simple-icons";
+import { ArrowUpRight, AudioLines, Braces, Camera, ChevronDown, FileArchive, Globe2, Network, Pause, Play, Radio, ShieldCheck } from "lucide-react";
+import { siApple, siModelcontextprotocol, siNdi, siOllama, siSwift, siTelegram } from "simple-icons";
 import { Button } from "@/components/ui/button";
 import resolumeLogo from "@/assets/resolume-logo.svg.asset.json";
 
@@ -119,6 +119,20 @@ export function TechnologyEcosystem({ locale }: { locale: Locale }) {
       <div className="ecosystem-sequence" aria-hidden="true">{t.phases.map((label, index) => <span key={label} className={phase === index ? "current" : ""}><span className="phase-number">0{index + 1}</span>{label}<span className="phase-progress" /></span>)}</div>
       <div className="ecosystem-detail" aria-live="polite"><div className="detail-heading"><Network className="size-4" /><strong>{detail[0]}</strong></div><p>{detail[1]}</p><ArrowUpRight className="size-4" aria-hidden="true" /></div>
       <p className="ecosystem-caption">{t.schematic}</p>
+      <div className="ecosystem-extensions">
+        <div className="extension-lane"><span className="extension-label">{locale === "pt" ? "Também documentado no motor" : "Also documented in the engine"}</span><div className="extension-items">
+          <div className="extension-item"><Camera /><strong>AVFoundation</strong><small>Continuity Camera</small></div>
+          <div className="extension-item"><FileArchive /><strong>Backup local</strong><small>tar.gz · OpenClaw · .spike</small></div>
+          <div className="extension-item"><ShieldCheck /><strong>WriteJournal</strong><small>{locale === "pt" ? "JSONL · experimental" : "JSONL · experimental"}</small></div>
+        </div></div>
+        <div className="extension-lane planned-lane"><span className="extension-label">{t.planned}</span><div className="extension-items">
+          <div className="extension-item"><span className="td-symbol" aria-hidden="true">TD</span><strong>TouchDesigner</strong><small>{locale === "pt" ? "Ponte de processamento" : "Processing bridge"}</small></div>
+          <span className="extension-link" aria-hidden="true" />
+          <div className="extension-item"><BrandIcon icon={siNdi} /><strong>NDI®</strong><small>{locale === "pt" ? "Política · sem código" : "Policy · no code"}</small></div>
+          <span className="extension-link" aria-hidden="true" />
+          <div className="extension-item"><Radio /><strong>OSC · Syphon</strong><small>{locale === "pt" ? "Pontes previstas" : "Proposed bridges"}</small></div>
+        </div></div>
+      </div>
       <details className="ecosystem-catalog"><summary>{t.catalog}<ChevronDown className="size-4" /></summary><TechnologyCatalog locale={locale} /><p className="tech-legal">{t.note}</p></details>
     </div>
   </section>;
@@ -128,7 +142,10 @@ function TechnologyCatalog({ locale }: { locale: Locale }) {
   const pt = locale === "pt";
   return <div className="technology-catalog-grid">
     <div><h3>{pt ? "Motor e comunicação" : "Engine and communication"}</h3><p>Swift · macOS · Swift Package Manager</p><p>MCP · stdio · JSON-RPC · sockets Unix</p><p>REST · HTTP · Bonjour · mDNS</p><p>ToolPolicy · WriteJournal · JSONL</p></div>
-    <div><h3>{pt ? "Inteligência local" : "Local intelligence"}</h3><p>Apple Foundation Models · Ollama</p><p>{pt ? "Prioridade local · política restritiva de ações" : "Local-first · restrictive action policy"}</p></div>
-    <div><h3>{pt ? "Nova interface" : "New interface"}</h3><p>{pt ? "Web · navegador · em evolução" : "Web · browser · in progress"}</p><p>{pt ? "Transporte com o motor a definir" : "Engine transport to be defined"}</p></div>
+    <div><h3>{pt ? "Inteligência e persistência" : "Intelligence and persistence"}</h3><p>Apple Foundation Models · Ollama</p><p>ChatEngine · ToolSchemaNormalizer · ToolCallTextRescue</p><p>Keychain · UserDefaults · /chat/completions</p><p>TimelineCalculator · OperationMode · ModeGate</p></div>
+    <div><h3>{pt ? "Nova interface" : "New interface"}</h3><p>{pt ? "Web · navegador · em evolução" : "Web · browser · in progress"}</p><p>{pt ? "Transporte com o motor a definir" : "Engine transport to be defined"}</p><p>{pt ? "Nenhuma ligação WebSocket presumida" : "No assumed WebSocket connection"}</p></div>
+    <div><h3>{pt ? "Referências da interface anterior" : "Previous interface references"}</h3><div className="catalog-logo-row"><BrandIcon icon={siSwift} /><span>SwiftUI</span><BrandIcon icon={siApple} /></div><p>AppKit · UIKit · Metal · MEVOLIT · BorderBeamKit</p><p>{pt ? "Tecnologias da UI nativa anterior; não descrevem a nova UI web. iOS era scaffold." : "Previous native UI technologies, not the new web UI. iOS was a scaffold."}</p></div>
+    <div><h3>Telegram</h3><div className="catalog-logo-row"><BrandIcon icon={siTelegram} /><span>TelegramQRCard</span></div><p>{pt ? "Card QR na interface anterior. Não há bot ou integração de API documentados." : "QR card in the previous interface. No documented bot or API integration."}</p></div>
+    <div><h3>{pt ? "Contexto do Arena, não dependências do motor" : "Arena context, not engine dependencies"}</h3><p>DXV · DXV3 · DXT1/DXT5 · BC1/BC3 · squish</p><p>H.264 · HEVC · ProRes · MJPEG · Resolume Alley</p><p>Syphon.framework · MoltenVK</p><p>{pt ? "Citados na análise de vídeo do Arena; nenhum pipeline de vídeo anunciado no Resolux." : "Referenced in Arena video analysis; no Resolux video pipeline announced."}</p></div>
   </div>;
 }
