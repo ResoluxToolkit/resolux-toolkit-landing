@@ -43,7 +43,7 @@ function WaitlistConfirmation({ locale = "pt" }: Props) {
 export const template = {
   component: WaitlistConfirmation,
   subject: (data: Record<string, any>) =>
-    data.locale === "en" ? "You're on the ResoluxToolkit list" : "Você está na lista do ResoluxToolkit",
+    data['locale'] === "en" ? "You're on the ResoluxToolkit list" : "Você está na lista do ResoluxToolkit",
   displayName: "Waitlist confirmation",
   previewData: { locale: "pt" },
 } satisfies TemplateEntry;
