@@ -69,7 +69,7 @@ const routes = [
   { id: "bonjour-arena", d: "M 830 458 C 920 458 915 275 940 275", kind: "discovery" },
 ];
 
-export function TechnologyEcosystem({ locale }: { locale: Locale }) {
+export function TechnologyEcosystem({ locale, featured = false }: { locale: Locale; featured?: boolean }) {
   const t = copy[locale];
   const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);
@@ -94,7 +94,7 @@ export function TechnologyEcosystem({ locale }: { locale: Locale }) {
     </Button>;
   }
 
-  return <section id="ecosystem" className="section-band ecosystem-section border-t border-border">
+  return <section id="ecosystem" className={`section-band ecosystem-section${featured ? " ecosystem-featured" : ""}${featured ? "" : " border-t border-border"}`}>
     <div className="section-inner">
       <div className="ecosystem-heading"><div><p className="section-kicker">{t.kicker}</p><h2>{t.title.split("\n").map((line) => <span className="block" key={line}>{line}</span>)}</h2><p className="section-lead">{t.intro}</p></div>
         <Button variant="outline" size="icon" onClick={() => setPaused((value) => !value)} aria-label={paused ? t.play : t.pause} title={paused ? t.play : t.pause} aria-pressed={paused} disabled={reduced}>{paused || reduced ? <Play className="size-4" /> : <Pause className="size-4" />}</Button>
