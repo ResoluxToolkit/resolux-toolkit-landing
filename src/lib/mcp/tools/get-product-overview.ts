@@ -6,7 +6,7 @@ const overview = {
     name: "ResoluxToolkit",
     audience: "Operadores de Resolume Arena",
     summary:
-      "Uma camada inteligente e local para monitorar o Arena, entender o set e ajudar o operador a agir sem retirar seu controle.",
+      "Um motor inteligente em Swift, rodando localmente no macOS com interface web, para monitorar o Arena, entender o set e ajudar o operador a agir sem retirar seu controle.",
     principles: [
       "Processamento local",
       "Apple Foundation Models primeiro, Ollama como alternativa",
@@ -18,7 +18,7 @@ const overview = {
     name: "ResoluxToolkit",
     audience: "Resolume Arena operators",
     summary:
-      "A local intelligent layer for monitoring Arena, understanding the set, and helping the operator act without taking control away.",
+      "A Swift engine running locally on macOS with a web interface, for monitoring Arena, understanding the set, and helping the operator act without taking control away.",
     principles: [
       "Local processing",
       "Apple Foundation Models first, Ollama as an alternative",

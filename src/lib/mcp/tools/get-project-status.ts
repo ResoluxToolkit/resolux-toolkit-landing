@@ -11,15 +11,15 @@ const statuses = {
       "Assistente local",
       "Política segura de ações",
     ],
-    inProgress: ["Experiência completa no iOS", "Telemetria de performance", "Diagnóstico avançado"],
-    note: "O app para iOS ainda está em definição e não é apresentado como pronto.",
+    inProgress: ["Experiência web completa", "Telemetria de performance", "Diagnóstico avançado"],
+    note: "O motor permanece em Swift no macOS; a interface é web e segue em evolução.",
   },
   en: {
     platform: "macOS",
     state: "In active development",
     available: ["Resolume Arena connection", "Set monitor", "Local assistant", "Safe action policy"],
-    inProgress: ["Complete iOS experience", "Performance telemetry", "Advanced diagnostics"],
-    note: "The iOS app is still being defined and is not presented as finished.",
+    inProgress: ["Complete web experience", "Performance telemetry", "Advanced diagnostics"],
+    note: "The engine remains Swift on macOS; the interface is web and still evolving.",
   },
 } as const;
 
