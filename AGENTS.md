@@ -9,4 +9,4 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Keep waitlist submissions behind a server function with no public database policies, because subscriber emails are private.
+- Keep waitlist submissions and rate-limit records behind a server function with no public database policies, because subscriber emails and request fingerprints are private.

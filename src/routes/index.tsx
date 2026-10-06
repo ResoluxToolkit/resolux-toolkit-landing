@@ -305,7 +305,7 @@ function Index() {
           <div className="section-inner">
             <div className="max-w-3xl"><p className="section-kicker">{t.sectionEyebrow}</p><h2>{t.sectionTitle}</h2><p className="section-lead">{t.sectionBody}</p></div>
             <div className="feature-grid">
-              {t.features.map(([title, body], index) => { const Icon = featureIcons[index]; return <article className="feature-item" key={title}><span className="feature-icon"><Icon /></span><h3>{title}</h3><p>{body}</p></article>; })}
+              {t.features.map(([title, body], index) => { const Icon = featureIcons[index] ?? Bot; return <article className="feature-item" key={title}><span className="feature-icon"><Icon /></span><h3>{title}</h3><p>{body}</p></article>; })}
             </div>
           </div>
         </section>
