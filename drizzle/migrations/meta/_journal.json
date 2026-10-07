@@ -15,6 +15,13 @@
       "when": 1791277309904,
       "tag": "0001_create_waitlist_rate_limits",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791378055728,
+      "tag": "0002_create_guide_rate_limits",
+      "breakpoints": true
     }
   ]
 }
