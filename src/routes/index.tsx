@@ -21,6 +21,8 @@ import { FormEvent, useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { TechnologyEcosystem } from "@/components/technology-ecosystem";
+import { SiteGuide } from "@/components/site-guide";
+import { faqBlocks } from "@/lib/guide/knowledge";
 import { joinWaitlist } from "@/lib/waitlist.functions";
 import { lovable } from "@/integrations/lovable/index";
 import { supabase } from "@/integrations/supabase/client";
@@ -332,7 +334,7 @@ function Index() {
       <header className="site-header">
         <a href="#top" className="brand"><span className="brand-glyph"><Sparkles /></span><span>ResoluxToolkit</span></a>
         <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
-          <a href="#ecosystem">{locale === "pt" ? "Tecnologias" : "Technologies"}</a><a href="#features">{t.nav[0]}</a><a href="#workflow">{t.nav[1]}</a><a href="#status">{t.nav[2]}</a>
+          <a href="#ecosystem">{locale === "pt" ? "Tecnologias" : "Technologies"}</a><a href="#features">{t.nav[0]}</a><a href="#workflow">{t.nav[1]}</a><a href="#status">{t.nav[2]}</a><a href="#faq">FAQ</a>
         </nav>
         <div className="flex items-center gap-2">
           <div className="language-switch" aria-label="Language"><Languages className="size-4" /><button onClick={() => changeLocale("pt")} className={locale === "pt" ? "active" : ""}>PT</button><span>/</span><button onClick={() => changeLocale("en")} className={locale === "en" ? "active" : ""}>EN</button></div>
@@ -362,7 +364,7 @@ function Index() {
           <div className="section-inner">
             <div className="max-w-3xl"><p className="section-kicker">{t.sectionEyebrow}</p><h2>{t.sectionTitle}</h2><p className="section-lead">{t.sectionBody}</p></div>
             <div className="feature-grid">
-              {t.features.map(([title, body], index) => { const Icon = featureIcons[index] ?? Bot; return <article className="feature-item" key={title}><span className="feature-icon"><Icon /></span><h3>{title}</h3><p>{body}</p></article>; })}
+              {t.features.map(([title, body], index) => { const Icon = featureIcons[index] ?? Bot; return <article className="feature-item" id={["feature-assistant","feature-monitor","feature-local","feature-safe"][index]} key={title}><span className="feature-icon"><Icon /></span><h3>{title}</h3><p>{body}</p></article>; })}
             </div>
           </div>
         </section>
@@ -371,7 +373,7 @@ function Index() {
         <section id="workflow" className="section-band border-t border-border">
           <div className="section-inner">
             <p className="section-kicker">{t.flowEyebrow}</p><h2>{t.flowTitle}</h2>
-            <div className="steps-grid">{t.steps.map(([number, title, body], index) => <article className="step" key={number}><span>{number}</span><div className="step-icon">{index === 0 ? <CircleDot /> : index === 1 ? <Eye /> : <Sparkles />}</div><h3>{title}</h3><p>{body}</p>{index < 2 && <ChevronRight className="step-arrow" />}</article>)}</div>
+            <div className="steps-grid">{t.steps.map(([number, title, body], index) => <article className="step" id={["step-connect","step-context","step-operate"][index]} key={number}><span>{number}</span><div className="step-icon">{index === 0 ? <CircleDot /> : index === 1 ? <Eye /> : <Sparkles />}</div><h3>{title}</h3><p>{body}</p>{index < 2 && <ChevronRight className="step-arrow" />}</article>)}</div>
           </div>
         </section>
 
@@ -379,9 +381,16 @@ function Index() {
           <div className="section-inner status-layout">
             <div><p className="section-kicker">{t.statusEyebrow}</p><h2>{t.statusTitle}</h2><p className="section-lead">{t.statusBody}</p><div className="mt-8 inline-flex items-center gap-2 text-sm text-muted-foreground"><LockKeyhole className="size-4 text-primary" />{locale === "pt" ? "Sem promessas além do que já foi medido." : "No promises beyond what has been verified."}</div></div>
             <div className="status-columns">
-              <div><span className="status-heading text-success"><CircleDot />{t.ready}</span>{t.readyItems.map((item) => <p key={item}><Check />{item}</p>)}</div>
-              <div><span className="status-heading text-info"><Gauge />{t.roadmap}</span>{t.roadmapItems.map((item) => <p key={item}><ChevronRight />{item}</p>)}</div>
+              <div id="status-ready"><span className="status-heading text-success"><CircleDot />{t.ready}</span>{t.readyItems.map((item) => <p key={item}><Check />{item}</p>)}</div>
+              <div id="status-roadmap"><span className="status-heading text-info"><Gauge />{t.roadmap}</span>{t.roadmapItems.map((item) => <p key={item}><ChevronRight />{item}</p>)}</div>
             </div>
+          </div>
+        </section>
+
+        <section id="faq" className="section-band border-t border-border">
+          <div className="section-inner">
+            <p className="section-kicker">FAQ</p><h2>{locale === "pt" ? "Perguntas frequentes" : "Frequently asked questions"}</h2>
+            <div className="faq-list">{faqBlocks.filter((b) => b.lang === locale).map((b) => <article className="faq-item" id={b.anchor} key={b.anchor}><h3>{b.title}</h3><p>{b.body}</p></article>)}</div>
           </div>
         </section>
 
@@ -391,6 +400,7 @@ function Index() {
         </section>
       </main>
 
+      <SiteGuide locale={locale} />
       <footer><a href="#top" className="brand"><span className="brand-glyph"><Sparkles /></span><span>ResoluxToolkit</span></a><p>{t.footer}</p><span>© 2026 ResoluxToolkit</span></footer>
     </div>
   );

@@ -14,6 +14,24 @@ export type Database = {
   }
   public: {
     Tables: {
+      guide_rate_limits: {
+        Row: {
+          attempted_at: string
+          id: string
+          ip_hash: string
+        }
+        Insert: {
+          attempted_at?: string
+          id?: string
+          ip_hash: string
+        }
+        Update: {
+          attempted_at?: string
+          id?: string
+          ip_hash?: string
+        }
+        Relationships: []
+      }
       waitlist_rate_limits: {
         Row: {
           attempted_at: string
