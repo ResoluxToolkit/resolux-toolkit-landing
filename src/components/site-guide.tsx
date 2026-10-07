@@ -37,7 +37,12 @@ export function scrollToAnchor(anchor: string) {
   window.setTimeout(() => el.classList.remove("guide-highlight"), 2200);
 }
 
-function GuideChat({ locale, initial, onClose }: { locale: Locale; initial: UIMessage[]; onClose: () => void }) {
+function loadSaved(): UIMessage[] {
+  try { const v = JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? "[]"); return Array.isArray(v) ? v : []; } catch { return []; }
+}
+
+function GuideChat({ locale, onClose }: { locale: Locale; onClose: () => void }) {
+  const [initial] = useState(loadSaved);
   const t = copy[locale];
   const [error, setError] = useState<string | null>(null);
   const [input, setInput] = useState("");
@@ -134,21 +139,11 @@ function GuideChat({ locale, initial, onClose }: { locale: Locale; initial: UIMe
 
 export function SiteGuide({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false);
-  const [initial, setInitial] = useState<UIMessage[] | null>(null);
-
-  function openGuide() {
-    if (!initial) {
-      try { const saved = JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? "[]"); setInitial(Array.isArray(saved) ? saved : []); }
-      catch { setInitial([]); }
-    }
-    setOpen(true);
-  }
-
   return (
     <>
-      {open && initial && <GuideChat key={locale} locale={locale} initial={initial} onClose={() => setOpen(false)} />}
+      {open && <GuideChat key={locale} locale={locale} onClose={() => setOpen(false)} />}
       {!open && (
-        <button type="button" className="guide-launcher" onClick={openGuide}>
+        <button type="button" className="guide-launcher" onClick={() => setOpen(true)}>
           <MessageCircleQuestion />{copy[locale].open}
         </button>
       )}
