@@ -22,11 +22,11 @@ export function parseKnowledge(source: string): KnowledgeBlock[] {
     for (const line of lines) {
       const a = line.match(/^anchor:\s*(\S+)/);
       const l = line.match(/^lang:\s*(pt|en)/);
-      if (a) anchor = a[1];
-      else if (l) lang = l[1] as GuideLocale;
+      if (a?.[1]) anchor = a[1];
+      else if (l?.[1]) lang = l[1] as GuideLocale;
       else body.push(line);
     }
-    if (anchor) blocks.push({ section: m[1].trim(), title: m[2].trim(), anchor, lang, body: body.join("\n").trim() });
+    if (anchor) blocks.push({ section: (m[1] ?? "").trim(), title: (m[2] ?? "").trim(), anchor, lang, body: body.join("\n").trim() });
   }
   return blocks;
 }
