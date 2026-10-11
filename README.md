@@ -5,7 +5,7 @@ Estou criando um projeto (ResoluxToolkit). Vou te passar a documentação do pro
 
 This project was built with [Lovable](https://lovable.dev).
 
-**Live app**: https://resolux-toolkit-landing.lovable.app
+**Live app**: [https://resolux-toolkit-landing.lovable.app](https://resolux.app)
 
 ## Build with Lovable
 
