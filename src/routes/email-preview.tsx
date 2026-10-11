@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
-import { ArrowLeft, Check, ChevronRight, Mail, Monitor, Smartphone, RotateCcw, Sparkles } from 'lucide-react'
+import { ArrowLeft, Check, ChevronRight, Mail, Monitor, Smartphone, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 import { getAuthEmailPreviews } from '@/lib/email-templates/auth-preview.functions'
@@ -8,6 +8,7 @@ import { getAuthEmailPreviews } from '@/lib/email-templates/auth-preview.functio
 const previewOptions = queryOptions({ queryKey: ['auth-email-previews'], queryFn: () => getAuthEmailPreviews(), staleTime: Infinity })
 
 export const Route = createFileRoute('/email-preview')({
+  validateSearch: (search: Record<string, unknown>) => ({ template: typeof search['template'] === 'string' ? search['template'] : 'signup', mobile: search['mobile'] === true || search['mobile'] === 'true' }),
   loader: ({ context }) => context.queryClient.ensureQueryData(previewOptions),
   errorComponent: () => <p role="alert">Não foi possível carregar os modelos de e-mail.</p>,
   notFoundComponent: () => <p>Prévia não encontrada.</p>,
@@ -34,8 +35,7 @@ const templates = [
 function EmailPreviewPage() {
   const { data: previews } = useSuspenseQuery(previewOptions)
   const [locale, setLocale] = useState<'pt' | 'en'>('pt')
-  const [selected, setSelected] = useState<string>('signup')
-  const [mobile, setMobile] = useState(false)
+  const { template: selected, mobile } = Route.useSearch()
   const current = templates.find(t => t.id === selected) ?? templates[0]
   const pt = locale === 'pt'
 
@@ -61,10 +61,12 @@ function EmailPreviewPage() {
         <div className="mt-10 grid min-w-0 gap-8 lg:grid-cols-[260px_minmax(0,1fr)]">
           <nav aria-label={pt ? 'Modelos de e-mail' : 'Email templates'} className="grid content-start gap-2 sm:grid-cols-2 lg:grid-cols-1">
             {templates.map((template, index) => (
-              <Button key={template.id} variant={selected === template.id ? 'outline' : 'ghost'} aria-pressed={selected === template.id} onClick={() => setSelected(template.id)} className={`h-auto min-h-14 justify-start whitespace-normal px-4 py-3 text-left text-sm ${selected === template.id ? 'border-primary/50 bg-accent' : ''}`}>
+              <Button asChild key={template.id} variant={selected === template.id ? 'outline' : 'ghost'} className={`h-auto min-h-14 justify-start whitespace-normal px-4 py-3 text-left text-sm ${selected === template.id ? 'border-primary/50 bg-accent' : ''}`}>
+                <a href={`/email-preview?template=${template.id}&mobile=${mobile}`} aria-current={selected === template.id ? 'page' : undefined}>
                 <span className="shrink-0 text-xs text-muted-foreground">0{index + 1}</span>
                 <span className="flex-1">{template[locale]}</span>
                 {selected === template.id && <ChevronRight className="size-4 shrink-0 text-primary" />}
+                </a>
               </Button>
             ))}
           </nav>
@@ -72,8 +74,8 @@ function EmailPreviewPage() {
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
               <h2 className="text-lg font-semibold">{current[locale]}</h2>
               <div className="flex gap-1 rounded-md border border-border p-1" role="group" aria-label={pt ? 'Tamanho da prévia' : 'Preview size'}>
-                <Button variant={mobile ? 'ghost' : 'outline'} size="icon-sm" title="Desktop" aria-label="Desktop" aria-pressed={!mobile} onClick={() => setMobile(false)}><Monitor className="size-4" /></Button>
-                <Button variant={mobile ? 'outline' : 'ghost'} size="icon-sm" title={pt ? 'Celular' : 'Mobile'} aria-label={pt ? 'Celular' : 'Mobile'} aria-pressed={mobile} onClick={() => setMobile(true)}><Smartphone className="size-4" /></Button>
+                <Button asChild variant={mobile ? 'ghost' : 'outline'} size="icon-sm"><a href={`/email-preview?template=${selected}&mobile=false`} title="Desktop" aria-label="Desktop"><Monitor className="size-4" /></a></Button>
+                <Button asChild variant={mobile ? 'outline' : 'ghost'} size="icon-sm"><a href={`/email-preview?template=${selected}&mobile=true`} title={pt ? 'Celular' : 'Mobile'} aria-label={pt ? 'Celular' : 'Mobile'}><Smartphone className="size-4" /></a></Button>
               </div>
             </div>
             <div className="overflow-hidden rounded-lg border border-border">

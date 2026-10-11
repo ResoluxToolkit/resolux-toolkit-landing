@@ -11,6 +11,6 @@
 
 - Keep waitlist submissions and rate-limit records behind a server function with no public database policies, because subscriber emails and request fingerprints are private.
 - Expose only static, read-only product information through the public MCP server, because the server has no caller authentication.
-- Authentication email previews render the existing templates in a sandboxed iframe with fictional data and no send-helper imports, so previewing cannot send mail or expose account data.
+- Authentication email previews render existing templates through a read-only server function into sandboxed iframes, using fictional data, URL-selected templates and no send-helper imports, so previews are shareable and cannot send mail or expose account data.
 - Present ResoluxToolkit as a Swift engine on macOS with a web-based front-end; never describe the UI as a native macOS/iOS app, because the product scope changed from native to web front-end.
 - Keep the animated product ecosystem in a dedicated browser-safe component with a source-backed inventory, using official brand paths where available and clearly labeled protocol symbols otherwise; this separates product architecture from the landing stack and avoids invented integrations.- Feed the site AI guide only from content/guide/knowledge.md and validate suggested anchors against the parsed index in code, because the guide must not invent facts or link to missing sections.
