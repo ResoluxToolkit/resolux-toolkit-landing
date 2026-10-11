@@ -8,7 +8,7 @@ import { getAuthEmailPreviews } from '@/lib/email-templates/auth-preview.functio
 const previewOptions = queryOptions({ queryKey: ['auth-email-previews'], queryFn: () => getAuthEmailPreviews(), staleTime: Infinity })
 
 export const Route = createFileRoute('/email-preview')({
-  validateSearch: (search: Record<string, unknown>) => ({ template: typeof search['template'] === 'string' ? search['template'] : 'signup', mobile: search['mobile'] === true || search['mobile'] === 'true' }),
+  validateSearch: (search: Record<string, unknown>): { template?: string; mobile?: boolean } => ({ template: typeof search['template'] === 'string' ? search['template'] : 'signup', mobile: search['mobile'] === true || search['mobile'] === 'true' }),
   loader: ({ context }) => context.queryClient.ensureQueryData(previewOptions),
   errorComponent: () => <p role="alert">Não foi possível carregar os modelos de e-mail.</p>,
   notFoundComponent: () => <p>Prévia não encontrada.</p>,
@@ -35,7 +35,7 @@ const templates = [
 function EmailPreviewPage() {
   const { data: previews } = useSuspenseQuery(previewOptions)
   const [locale, setLocale] = useState<'pt' | 'en'>('pt')
-  const { template: selected, mobile } = Route.useSearch()
+  const { template: selected = 'signup', mobile = false } = Route.useSearch()
   const current = templates.find(t => t.id === selected) ?? templates[0]
   const pt = locale === 'pt'
 
