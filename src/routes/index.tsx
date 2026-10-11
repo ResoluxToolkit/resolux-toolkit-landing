@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import {
   ArrowRight,
@@ -401,7 +401,7 @@ function Index() {
       </main>
 
       <SiteGuide locale={locale} />
-      <footer><a href="#top" className="brand"><span className="brand-glyph"><Sparkles /></span><span>ResoluxToolkit</span></a><p>{t.footer}</p><span>© 2026 ResoluxToolkit</span></footer>
+      <footer><a href="#top" className="brand"><span className="brand-glyph"><Sparkles /></span><span>ResoluxToolkit</span></a><p>{t.footer}</p><Button asChild variant="ghost" size="sm"><Link to="/email-preview">{locale === "pt" ? "Prévia dos e-mails" : "Email previews"}</Link></Button><span>© 2026 ResoluxToolkit</span></footer>
     </div>
   );
 }
