@@ -16,15 +16,6 @@ Object.assign(process.env, serverEnv);
 export default defineConfig({
   vite: {
     plugins: [mcpPlugin()],
-    resolve: {
-      alias: {
-        "entities/lib/decode.js": path.resolve(__dirname, "node_modules/entities/lib/decode.js"),
-        "entities/lib/encode.js": path.resolve(__dirname, "node_modules/entities/lib/encode.js"),
-        "entities/escape": path.resolve(__dirname, "node_modules/entities/lib/esm/escape.js"),
-        "entities/decode": path.resolve(__dirname, "node_modules/entities/lib/esm/decode.js"),
-        entities: path.resolve(__dirname, "node_modules/entities"),
-      },
-    },
   },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
