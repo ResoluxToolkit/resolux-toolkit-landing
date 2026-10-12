@@ -35,8 +35,9 @@ const templates = [
 function EmailPreviewPage() {
   const { data: previews } = useSuspenseQuery(previewOptions)
   const [locale, setLocale] = useState<'pt' | 'en'>('pt')
-  const { template: selected = 'signup', mobile = false } = Route.useSearch()
-  const current = templates.find(t => t.id === selected) ?? templates[0]
+  const { template: requested = 'signup', mobile = false } = Route.useSearch()
+  const current = templates.find(t => t.id === requested) ?? templates[0]
+  const selected = current.id
   const pt = locale === 'pt'
 
   useEffect(() => {
